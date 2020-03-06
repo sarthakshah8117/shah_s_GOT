@@ -4,8 +4,9 @@
       lightBox = document.querySelector(".lightbox"),
       houseVideo = lightBox.querySelector("video"),
       closeButton = lightBox.querySelector(".close-button"),
-      currentHouseName = document.querySelector("h1");
-      houseDescription = document.querySelector(".house-info");
+      currentHouseName = document.querySelector("h1"),
+      houseDescription = document.querySelector(".house-info"),
+      imageContainer = document.querySelector("#houseImages");
 
 
 
@@ -41,6 +42,7 @@
 
     // use this varaible to populate the h1 Element on the page
     currentHouseName.textContent = `House  ${houseData[this.dataset.offset][0]}`;
+    // this variable is pointing at the paragraph  tag under h1 =>
     houseDescription.textContent = `${houseData[this.dataset.offset][1]}`;
 
     let targetSource = `video/House-${houseName}.mp4`;
@@ -63,9 +65,26 @@
         houseVideo.currentTime = 0;
 
       }
-  // event handling for our sigilButtons
-  sigilButtons.forEach(button => button.addEventListener("click", showLightBox));
 
+      function animateBanners(){
+
+        // clicking on the sield should trigger an animation
+        // figure out how far should the banners move with some simple maths.
+        let offsetwidth = 600;
+        let multiplier = this.dataset.offset;
+        let newPosition = offsetwidth * multiplier;
+        // debugger;
+        //change the style.left property to match the new position - where it needs to move to
+
+        imageContainer.style.right = `${newPosition}px`;
+      }
+  // event handling for our sigilButtons
+  // sigilButtons.forEach(button => button.addEventListener("click", showLightBox));
+
+
+
+// animate the banners on a click
+sigilButtons.forEach(button => button.addEventListener("click", animateBanners));
   // add some even handling for the lightbox close button
   closeButton.addEventListener("click", hideLightBox);
 
